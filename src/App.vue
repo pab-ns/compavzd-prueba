@@ -1,32 +1,42 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
-  </div>
+  <v-app>
+    <Navbar @toggleDrawer="drawer = !drawer" />
+    <Sidebar v-model="drawer" />
+
+    <v-main>
+      <v-container>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-app>
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-}
+<script>
+// import Firebase from "firebase";
+export default {
+  name: "App",
+  components: {
+    Navbar: () => import("./components/Navbar.vue"),
+    Sidebar: () => import("./components/Sidebar.vue"),
+  },
 
-#nav {
-  padding: 30px;
-}
+  data: () => ({
+    drawer: false,
+  }),
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
-}
-
-#nav a.router-link-exact-active {
-  color: #42b983;
-}
-</style>
+  methods: {},
+  mounted() {
+    /*
+    Test firebase
+    Firebase.firestore()
+      .collection("cursos")
+      .get()
+      .then((documents) => {
+        documents.forEach((document) => {
+          this.cursos.push({ id: document.id, ...document.data() });
+        });
+      });
+    */
+  },
+};
+</script>
